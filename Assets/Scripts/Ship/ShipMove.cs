@@ -5,7 +5,7 @@ using Zenject;
 
 public class ShipMove : MonoBehaviour
 {
-    [Inject] PlayerInput playerInput;
+    [Inject] PlayerInput _playerInput;
     Rigidbody2D _rb2d;
     [SerializeField] Camera _mainCam;
     [SerializeField] float _speed;
@@ -22,11 +22,13 @@ public class ShipMove : MonoBehaviour
 
     void OnEnable()
     {
-        playerInput.accelerationAction += Acceleration;
+        _playerInput.accelerationAction += Acceleration;
+        _playerInput.decelerationAction += Deceleration;
     }
     void OnDisable()
     {
-        playerInput.accelerationAction -= Acceleration;
+        _playerInput.accelerationAction -= Acceleration;
+        _playerInput.decelerationAction -= Deceleration;
     }
 
     void Update()
@@ -36,7 +38,12 @@ public class ShipMove : MonoBehaviour
 
     void Acceleration()
     {
-        _rb2d.AddForce(_direction * 1f * Time.deltaTime);
+        _rb2d.AddForce(_direction * _speed * Time.deltaTime);
+    }
+
+    void Deceleration()
+    {
+        _rb2d.velocity = _rb2d.velocity / 1.009f;
     }
 
     void RotateShip()
