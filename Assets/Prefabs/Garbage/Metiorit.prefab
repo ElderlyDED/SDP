@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 6106142541287066092}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6714818479219549523
 MonoBehaviour:
@@ -52,8 +52,8 @@ MonoBehaviour:
   _target: {fileID: 0}
   _checkHp:
     value: 0
-  _pieceCount: 1
-  _piecePrefab: {fileID: 1305534301544611326, guid: 971f2d962c4ffc641ab084aa67b25d60, type: 3}
+  _pieceCount: 3
+  _piecePrefab: {fileID: 1305534301544611326, guid: 9c5cd9887f574554490fe195232f6f25, type: 3}
   _pieceForce: 2
 --- !u!58 &2358945071893084441
 CircleCollider2D:
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 6106142541287066092}
   - component: {fileID: 5577897900175110057}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 6010224645267953819}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8450395875757091932}
@@ -190,8 +190,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -1061641009, guid: 188180915e168e046b3472d590267548, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
