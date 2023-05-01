@@ -11,13 +11,15 @@ public class MachineGun : MonoBehaviour, IShooting
     [SerializeField] float _bulletSpeed;
     [SerializeField] int _bulletDamage;
     [SerializeField] float _bulletLifeTime;
-    public void Shoot()
+    [SerializeField] int _upDamage;
+    public void Shoot(int damageLvl)
     {
+        int damage = _bulletDamage + (_upDamage * damageLvl);
         var firstBullet = Instantiate(_bulletPrefab, _shootPointFirstGun.position, transform.rotation);
         if(firstBullet.TryGetComponent(out Bullet fBulletScript))
-            fBulletScript.SetBulletStats(_bulletSpeed, _bulletDamage, _bulletLifeTime);
+            fBulletScript.SetBulletStats(_bulletSpeed, damage, _bulletLifeTime);
         var secondBullet = Instantiate(_bulletPrefab, _shootPointSecondGun.position, transform.rotation);
         if (secondBullet.TryGetComponent(out Bullet sBulletScript))
-            sBulletScript.SetBulletStats(_bulletSpeed, _bulletDamage, _bulletLifeTime);
+            sBulletScript.SetBulletStats(_bulletSpeed, damage, _bulletLifeTime);
     }
 } 

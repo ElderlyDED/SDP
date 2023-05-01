@@ -8,7 +8,7 @@ public class MiniMeteorite : Garbage
     protected override void CheckHealth()
     {
         _checkHp.Where(h => h <= 0).Subscribe(value => {
-            Destroy(gameObject);
+            DestroyThis();
         }).AddTo(_disposable);
     }
 }

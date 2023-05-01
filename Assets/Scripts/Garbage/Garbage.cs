@@ -12,6 +12,12 @@ public abstract class Garbage : MonoBehaviour, IDamageable
     protected CompositeDisposable _disposable = new CompositeDisposable();
     [SerializeField] protected IntReactiveProperty _checkHp = new IntReactiveProperty();
     #endregion
+    #region Loot Property
+    [SerializeField] List<GameObject> _details = new();
+    [SerializeField] int _minCountDropDetails;
+    [SerializeField] int _maxCountDropDetails;
+    [SerializeField] float _detailForce;
+    #endregion
 
     void Start()
     {
@@ -49,9 +55,23 @@ public abstract class Garbage : MonoBehaviour, IDamageable
 
     public void ApplyDamage(int damageCount) => _checkHp.Value -= damageCount;
 
-    void DestroyThis()
+    protected virtual void DestroyThis()
     {
+        DropLoot();
         _disposable.Clear();
         Destroy(gameObject);
+    }
+
+    void DropLoot()
+    {
+        int randCountDetails = Random.Range(_minCountDropDetails, _maxCountDropDetails);
+        for (int i = 0; i < randCountDetails; i++)
+        {
+            GameObject randDetail = _details[Random.Range(0, _details.Count)];
+            var detail = Instantiate(randDetail, transform.position, transform.rotation);
+            detail.TryGetComponent(out Rigidbody2D rb2D);
+            var direction = UnityEngine.Random.insideUnitCircle.normalized;
+            rb2D.AddForce(direction * _detailForce);
+        }
     }
 }

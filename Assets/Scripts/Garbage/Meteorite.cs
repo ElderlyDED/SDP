@@ -15,7 +15,7 @@ public class Meteorite : Garbage
     {
         _checkHp.Where(h => h <= 0).Subscribe(value => {
             SpawnPiece();
-            Destroy(gameObject);
+            DestroyThis();
         }).AddTo(_disposable);
     }
 
@@ -28,6 +28,12 @@ public class Meteorite : Garbage
             var direction = UnityEngine.Random.insideUnitCircle.normalized;
             rb2D.AddForce(direction * _pieceForce);
         }
+    }
+
+    protected override void DestroyThis()
+    {
+        _disposable.Clear();
+        Destroy(gameObject);
     }
 
 }

@@ -114,6 +114,12 @@ MonoBehaviour:
   _target: {fileID: 0}
   _checkHp:
     value: 0
+  _details:
+  - {fileID: 8211416873964394843, guid: bd4a0eaa2b26022498323795426a7ef2, type: 3}
+  - {fileID: 5889838800245185265, guid: a34b632ce4baea44a8a5eb6fb59bbcc7, type: 3}
+  _minCountDropDetails: 2
+  _maxCountDropDetails: 5
+  _detailForce: 2
 --- !u!1 &4772968879455923540
 GameObject:
   m_ObjectHideFlags: 0

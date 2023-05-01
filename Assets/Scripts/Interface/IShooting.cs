@@ -4,5 +4,5 @@ using UnityEngine;
 
 interface IShooting
 {
-    void Shoot() { }
+    void Shoot(int damageLvl) { }
 }

@@ -10,7 +10,10 @@ public class PlayerInput : MonoBehaviour
     public event DecelerationAction decelerationAction;
     public delegate void WeaponSlotAction(int slotId);
     public event WeaponSlotAction weaponSlotAction;
-    
+    public delegate void PauseAction();
+    public event PauseAction pauseAction;
+    public delegate void UpgradeAction();
+    public event UpgradeAction upgradeAction;
 
     void Start()
     {
@@ -24,9 +27,9 @@ public class PlayerInput : MonoBehaviour
             decelerationAction?.Invoke();
         if (Input.GetKeyDown(KeyCode.Z))
             weaponSlotAction?.Invoke(0);
-        if (Input.GetKeyDown(KeyCode.X))
-            weaponSlotAction?.Invoke(1);
-        if (Input.GetKeyDown(KeyCode.C))
-            weaponSlotAction?.Invoke(2);
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+            pauseAction?.Invoke();
+        if(Input.GetKeyDown(KeyCode.I))
+            upgradeAction?.Invoke();
     }
 }

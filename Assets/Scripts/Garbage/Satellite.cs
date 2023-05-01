@@ -8,5 +8,5 @@ using UniRx.Triggers;
 
 public class Satellite : Garbage
 {
-  
+    
 }

@@ -15,6 +15,12 @@ public class ShipStats : MonoBehaviour
     [SerializeField] float _hpRegenRate;
     [SerializeField] float _ShieldRegenRate;
 
+    [field: SerializeField] public int CountBlueDetails { get; private set; }
+    [field: SerializeField] public int CountRedDetails { get; private set; }
+
+    [field: SerializeField] public int HpLvl { get; private set; }
+    [field: SerializeField] public int DamageLvl { get; private set; }
+
     void Start()
     {
         CheckShipHp();
@@ -32,4 +38,16 @@ public class ShipStats : MonoBehaviour
 
     void DestroyShip() => Debug.Log("ShipDie");
 
+    public void ApplyBlueDetails(int countDetails) => CountBlueDetails += countDetails;
+    public void ApplyRdDetails(int countDetails) => CountRedDetails += countDetails;
+    public void SetHpLvl(int minusBlueDetails) 
+    {
+        CountBlueDetails -= minusBlueDetails;
+        HpLvl++;
+    }
+    public void SetDamageLvl(int minusRedDetails)
+    {
+        CountRedDetails -= minusRedDetails;
+        DamageLvl++;
+    }
 }

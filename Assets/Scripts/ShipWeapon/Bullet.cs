@@ -7,7 +7,7 @@ using System;
 public class Bullet : MonoBehaviour
 {
     float _bulletSpeed;
-    int _bulletDamage;
+    [SerializeField] int _bulletDamage;
     float _bulletLifeTime;
 
     void Start()
