@@ -53,7 +53,7 @@ public class UpgradeMenu : MonoBehaviour
     #region BtnScripts
     public void UpShipHp()
     {
-        if (_shipStats.CountBlueDetails >= _nowCostHpShip)
+        if (_shipStats.CountBlueDetails.Value >= _nowCostHpShip)
         {
             _shipStats.SetHpLvl(_nowCostHpShip);
             _nowCostHpShip = _nowCostHpShip * _upRateShipCost; 
@@ -62,7 +62,7 @@ public class UpgradeMenu : MonoBehaviour
 
     public void UpShipDamage()
     {
-        if (_shipStats.CountRedDetails >= _nowCostDamageShip)
+        if (_shipStats.CountRedDetails.Value >= _nowCostDamageShip)
         {
             _shipStats.SetDamageLvl(_nowCostDamageShip);
             _nowCostDamageShip = _nowCostDamageShip * _upRateShipCost;

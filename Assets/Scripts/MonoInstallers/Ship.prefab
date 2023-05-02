@@ -417,11 +417,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkShipHp:
-    value: 100
+    value: 127
   _checkShipShield:
+    value: 0
+  _maxHp:
+    value: 150
+  _maxShield:
     value: 200
-  _hpRegenRate: 0
-  _ShieldRegenRate: 0
+  _hpRegenRate: 0.25
+  _ShieldRegenRate: 0.25
+  _takeDamage: 0
   <CountBlueDetails>k__BackingField: 0
   <CountRedDetails>k__BackingField: 0
   <HpLvl>k__BackingField: 0
