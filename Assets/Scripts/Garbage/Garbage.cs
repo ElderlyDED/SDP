@@ -8,6 +8,7 @@ public abstract class Garbage : MonoBehaviour, IDamageable
     [SerializeField] protected int _hp;
     [SerializeField] protected float _moveSpeed;
     [SerializeField] Transform _target;
+    [SerializeField] int _destroyDamage;
     #region Reactive Property
     protected CompositeDisposable _disposable = new CompositeDisposable();
     [SerializeField] protected IntReactiveProperty _checkHp = new IntReactiveProperty();
@@ -51,6 +52,19 @@ public abstract class Garbage : MonoBehaviour, IDamageable
         {
             DestroyThis();
         }
+        if (collision.tag == "Ship")
+        {
+            collision.TryGetComponent(out ShipStats ss);
+            ss.ApplyDamage(_destroyDamage);
+            DestroyThis();
+        }
+            
+
+    }
+
+    protected virtual void DestroyDamageShip()
+    {
+
     }
 
     public void ApplyDamage(int damageCount) => _checkHp.Value -= damageCount;

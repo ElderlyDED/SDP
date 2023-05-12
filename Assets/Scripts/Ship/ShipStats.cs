@@ -20,22 +20,30 @@ public class ShipStats : MonoBehaviour
     [SerializeField] float _hpRegenRate;
     [SerializeField] float _ShieldRegenRate;
     [SerializeField] bool _takeDamage;
-
-    [field: SerializeField] public int HpLvl { get; private set; }
+    [SerializeField] float _dealyRegen;
+    [field: SerializeField] public IntReactiveProperty HpLvl { get; private set; } = new();
     [field: SerializeField] public int DamageLvl { get; private set; }
 
     void Start()
     {
         CheckHp();
-        CheckHpToRegen();
+        SetHpWithLvl();
+        CheckShieldToRegen();
     }
 
     void CheckHp() => CheckShipHp.Where(hp => hp <= 0).Subscribe(v => { DestroyShip(); }).AddTo(_disposable);
 
-    void ApplyDamage(int damageCount)
+    void SetHpWithLvl() => HpLvl.Subscribe(v => { 
+        MaxHp.Value += v * 10;
+        CheckShipHp.Value = MaxHp.Value;
+        MaxShield.Value += v * 10;
+    }).AddTo(_disposable);
+
+    public void ApplyDamage(int damageCount)
     {
+        DelayRegen();
         if (CheckShipShield.Value > 0)
-            CheckShipShield.Value -= damageCount / 2;
+            CheckShipShield.Value -= damageCount;
         else if (CheckShipShield.Value <= 0)
             CheckShipHp.Value -= damageCount;
     }
@@ -48,7 +56,7 @@ public class ShipStats : MonoBehaviour
     public void SetHpLvl(int minusBlueDetails) 
     {
         CountBlueDetails.Value -= minusBlueDetails;
-        HpLvl++;
+        HpLvl.Value++;
     }
 
     public void SetDamageLvl(int minusRedDetails)
@@ -57,12 +65,19 @@ public class ShipStats : MonoBehaviour
         DamageLvl++;
     }
 
-    void CheckHpToRegen()
+    void CheckShieldToRegen()
     {
         Observable.EveryFixedUpdate().Subscribe(v => {
             if (!_takeDamage)
                 if (CheckShipShield.Value < MaxShield.Value)
                     CheckShipShield.Value += 1;
         }).AddTo(_disposable);
+    }
+
+    async UniTask DelayRegen()
+    {
+        _takeDamage = true;
+        await UniTask.Delay(TimeSpan.FromSeconds(_dealyRegen));
+        _takeDamage = false;
     }
 }

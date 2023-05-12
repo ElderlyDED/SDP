@@ -112,6 +112,7 @@ MonoBehaviour:
   _hp: 100
   _moveSpeed: 0.2
   _target: {fileID: 0}
+  _destroyDamage: 25
   _checkHp:
     value: 0
   _details:

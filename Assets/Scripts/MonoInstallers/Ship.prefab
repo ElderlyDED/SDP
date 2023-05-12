@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 30791635418431664}
   m_Layer: 0
   m_Name: Ship
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -416,20 +416,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d38c0cb8e66e542adea734a125cae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _checkShipHp:
-    value: 127
-  _checkShipShield:
-    value: 0
-  _maxHp:
-    value: 150
-  _maxShield:
+  <CheckShipHp>k__BackingField:
+    value: 100
+  <CheckShipShield>k__BackingField:
     value: 200
+  <MaxHp>k__BackingField:
+    value: 100
+  <MaxShield>k__BackingField:
+    value: 200
+  <CountBlueDetails>k__BackingField:
+    value: 0
+  <CountRedDetails>k__BackingField:
+    value: 0
   _hpRegenRate: 0.25
   _ShieldRegenRate: 0.25
   _takeDamage: 0
-  <CountBlueDetails>k__BackingField: 0
-  <CountRedDetails>k__BackingField: 0
-  <HpLvl>k__BackingField: 0
+  _dealyRegen: 5
+  <HpLvl>k__BackingField:
+    value: 0
   <DamageLvl>k__BackingField: 0
 --- !u!50 &420538435425626894
 Rigidbody2D:

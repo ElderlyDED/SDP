@@ -50,8 +50,13 @@ MonoBehaviour:
   _hp: 100
   _moveSpeed: 0.2
   _target: {fileID: 0}
+  _destroyDamage: 50
   _checkHp:
     value: 0
+  _details: []
+  _minCountDropDetails: 0
+  _maxCountDropDetails: 0
+  _detailForce: 0
   _pieceCount: 3
   _piecePrefab: {fileID: 1305534301544611326, guid: 9c5cd9887f574554490fe195232f6f25, type: 3}
   _pieceForce: 2
