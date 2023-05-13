@@ -10,7 +10,7 @@ public class SetShipStatsUI : MonoBehaviour
 {
     CompositeDisposable _disposable = new CompositeDisposable();
 
-    [Inject] GameObject _ship;
+    [Inject(Id = "Ship")] GameObject _ship;
     ShipStats _shipStats;
 
     #region UiElement

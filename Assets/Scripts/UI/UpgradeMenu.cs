@@ -7,7 +7,7 @@ public class UpgradeMenu : MonoBehaviour
 {
     [Inject] GameStatus _gameStatus;
     [Inject] PlayerInput _playerInput;
-    [Inject] GameObject _ship;
+    [Inject(Id = "Ship")] GameObject _ship;
     ShipStats _shipStats;
 
     [SerializeField] Animator _menuAnimator;

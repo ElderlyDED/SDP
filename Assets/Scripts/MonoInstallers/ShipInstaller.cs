@@ -8,6 +8,6 @@ public class ShipInstaller : MonoInstaller
     {
         var shipPrefabInstance = Container.InstantiatePrefab(_shipPrefab
             ,new Vector3(0f, 0.3f, 0f), Quaternion.identity, transform.parent = null);
-        Container.Bind<GameObject>().FromInstance(shipPrefabInstance).AsSingle();
+        Container.Bind<GameObject>().WithId("Ship").FromInstance(shipPrefabInstance);
     }
 }

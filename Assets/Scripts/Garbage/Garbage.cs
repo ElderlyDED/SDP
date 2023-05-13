@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 public abstract class Garbage : MonoBehaviour, IDamageable
 {
@@ -9,6 +10,7 @@ public abstract class Garbage : MonoBehaviour, IDamageable
     [SerializeField] protected float _moveSpeed;
     [SerializeField] Transform _target;
     [SerializeField] int _destroyDamage;
+    [SerializeField] int _planetDamage;
     #region Reactive Property
     protected CompositeDisposable _disposable = new CompositeDisposable();
     [SerializeField] protected IntReactiveProperty _checkHp = new IntReactiveProperty();
@@ -50,6 +52,8 @@ public abstract class Garbage : MonoBehaviour, IDamageable
     {
         if (collision.tag == "Planet")
         {
+            collision.TryGetComponent(out PlanetScript ps);
+            ps.ApplyDamage(_planetDamage);
             DestroyThis();
         }
         if (collision.tag == "Ship")
@@ -58,13 +62,6 @@ public abstract class Garbage : MonoBehaviour, IDamageable
             ss.ApplyDamage(_destroyDamage);
             DestroyThis();
         }
-            
-
-    }
-
-    protected virtual void DestroyDamageShip()
-    {
-
     }
 
     public void ApplyDamage(int damageCount) => _checkHp.Value -= damageCount;

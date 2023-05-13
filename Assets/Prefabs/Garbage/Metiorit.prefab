@@ -51,6 +51,7 @@ MonoBehaviour:
   _moveSpeed: 0.2
   _target: {fileID: 0}
   _destroyDamage: 50
+  _planetDamage: 50
   _checkHp:
     value: 0
   _details: []
