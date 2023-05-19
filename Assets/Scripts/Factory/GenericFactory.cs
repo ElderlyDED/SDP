@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class GenericFactory<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] T _prefab;
-
+ 
     [SerializeField] float _maxHorizontal;
     [SerializeField] float _minHorizontal;
     [SerializeField] int _spawnCount;
     [SerializeField] protected List<GameObject> _spawningObjects = new();
     [SerializeField] List<float> _verticalPos = new();
-
+    
     public T GetNewInstance()
     {
         Vector2 pos = new Vector2 (Random.Range(_minHorizontal, _maxHorizontal),

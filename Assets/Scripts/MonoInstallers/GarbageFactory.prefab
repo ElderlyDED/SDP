@@ -52,4 +52,5 @@ MonoBehaviour:
   _verticalPos:
   - -2
   - 2
-  maxSpawningObjects: 10
+  _maxSpawningObjects: 9
+  _maxSpawnObjectsAll: 15

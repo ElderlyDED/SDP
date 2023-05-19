@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp: 100
-  _moveSpeed: 0.2
+  _moveSpeed: 0.1
   _target: {fileID: 0}
   _destroyDamage: 50
-  _planetDamage: 50
+  _planetDamage: 25
   _checkHp:
     value: 0
   _details: []

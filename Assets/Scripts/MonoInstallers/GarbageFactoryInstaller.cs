@@ -8,6 +8,6 @@ public class GarbageFactoryInstaller : MonoInstaller
     {
         var garbageFactoryPrefabInstance = Container.InstantiatePrefab(_garbageFactoryPref, 
             new Vector3(0, 0, 0), Quaternion.identity, transform.parent = null);
-        Container.Bind<GameObject>().WithId("GarbageFactory").FromInstance(garbageFactoryPrefabInstance);
+        Container.Bind<GameObject>().WithId("GarbageFactory").FromInstance(garbageFactoryPrefabInstance).Lazy();
     }
 }
