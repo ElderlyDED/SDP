@@ -4,9 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 public class ShipStats : MonoBehaviour
 {
+    [Inject] GameStatus _gameStatus;
     #region UniRx
     CompositeDisposable _disposable = new CompositeDisposable();
     [field: SerializeField] public IntReactiveProperty CheckShipHp { get; private set; } = new();
@@ -24,6 +26,8 @@ public class ShipStats : MonoBehaviour
     [field: SerializeField] public IntReactiveProperty HpLvl { get; private set; } = new();
     [field: SerializeField] public int DamageLvl { get; private set; }
 
+    [SerializeField] AudioSource _audioSource;
+
     void Start()
     {
         CheckHp();
@@ -31,7 +35,10 @@ public class ShipStats : MonoBehaviour
         CheckShieldToRegen();
     }
 
-    void CheckHp() => CheckShipHp.Where(hp => hp <= 0).Subscribe(v => { DestroyShip(); }).AddTo(_disposable);
+    void CheckHp() => CheckShipHp.Where(hp => hp <= 0).Subscribe(v => {
+        _gameStatus.EndGame();
+        DestroyShip(); 
+    }).AddTo(_disposable);
 
     void SetHpWithLvl() => HpLvl.Subscribe(v => { 
         MaxHp.Value += v * 10;
@@ -46,6 +53,7 @@ public class ShipStats : MonoBehaviour
             CheckShipShield.Value -= damageCount;
         else if (CheckShipShield.Value <= 0)
             CheckShipHp.Value -= damageCount;
+        _audioSource.Play();
     }
 
     void DestroyShip() => Debug.Log("ShipDie");

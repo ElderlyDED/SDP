@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
@@ -6,6 +7,8 @@ using Zenject;
 
 public abstract class Garbage : MonoBehaviour, IDamageable
 {
+    [SerializeField] AudioSource _soundSource;
+    [SerializeField] Animator _animator;
     [SerializeField] protected int _hp;
     [SerializeField] protected float _moveSpeed;
     [SerializeField] Transform _target;
@@ -54,7 +57,7 @@ public abstract class Garbage : MonoBehaviour, IDamageable
         {
             collision.TryGetComponent(out PlanetScript ps);
             ps.ApplyDamage(_planetDamage);
-            DestroyThis();
+            DestroyNotLoot();
         }
         if (collision.tag == "Ship")
         {
@@ -64,7 +67,14 @@ public abstract class Garbage : MonoBehaviour, IDamageable
         }
     }
 
-    public void ApplyDamage(int damageCount) => _checkHp.Value -= damageCount;
+    public void ApplyDamage(int damageCount)
+    {
+        _checkHp.Value -= damageCount;
+        _animator.SetBool("TakeDamage", true);
+        _soundSource.Play();
+        Observable.Timer(TimeSpan.FromSeconds(0.3f)).Subscribe(v => { _animator.SetBool("TakeDamage", false); }).AddTo(this);
+
+    }
 
     protected virtual void DestroyThis()
     {
@@ -73,12 +83,18 @@ public abstract class Garbage : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
+    void DestroyNotLoot()
+    {
+        _disposable.Clear();
+        Destroy(gameObject);
+    }
+
     void DropLoot()
     {
-        int randCountDetails = Random.Range(_minCountDropDetails, _maxCountDropDetails);
+        int randCountDetails = UnityEngine.Random.Range(_minCountDropDetails, _maxCountDropDetails);
         for (int i = 0; i < randCountDetails; i++)
         {
-            GameObject randDetail = _details[Random.Range(0, _details.Count)];
+            GameObject randDetail = _details[UnityEngine.Random.Range(0, _details.Count)];
             var detail = Instantiate(randDetail, transform.position, transform.rotation);
             detail.TryGetComponent(out Rigidbody2D rb2D);
             var direction = UnityEngine.Random.insideUnitCircle.normalized;

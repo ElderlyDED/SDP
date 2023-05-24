@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour
             accelerationAction?.Invoke();
         if (Input.GetKey(KeyCode.S))
             decelerationAction?.Invoke();
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
             weaponSlotAction?.Invoke(0);
         if (Input.GetKeyDown(KeyCode.Escape)) 
             pauseAction?.Invoke();

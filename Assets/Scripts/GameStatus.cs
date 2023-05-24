@@ -6,11 +6,15 @@ using UnityEngine;
 
 public class GameStatus : MonoBehaviour
 {
-    [SerializeField] bool _gamePause;
+    [field: SerializeField] public bool GamePause {  get; private set; }
+
+    [field: SerializeField] public BoolReactiveProperty GameEnded { get; private set; } = new();
 
     [SerializeField] IntReactiveProperty _allSec;
     [field: SerializeField] public IntReactiveProperty Min { get; private set; } = new();
     [field: SerializeField] public IntReactiveProperty Sec { get; private set; } = new();
+
+    [SerializeField] AudioSource _audioSource;
 
     void Start()
     {
@@ -31,15 +35,22 @@ public class GameStatus : MonoBehaviour
 
     public void SetGamePause()
     {
-        if (_gamePause == false)
+        if (GamePause == false)
         {
-            _gamePause = true;
+            GamePause = true;
             Time.timeScale = 0f;
         }
         else
         {
-            _gamePause = false;
+            GamePause = false;
             Time.timeScale = 1f;
         }
+    }
+
+    public void EndGame()
+    {
+        _audioSource.Play();
+        SetGamePause();
+        GameEnded.Value = true;
     }
 }

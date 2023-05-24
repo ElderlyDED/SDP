@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -16,16 +18,22 @@ public class UpgradeMenu : MonoBehaviour
     [SerializeField] int _blueDetails;
     [SerializeField] int _redDetails;
 
+    [SerializeField] AudioSource _audioSource;
+
     #region UpCostShip
     [SerializeField] int _upRateShipCost;
     [SerializeField] int _nowCostHpShip;
     [SerializeField] int _nowCostDamageShip;
     #endregion
 
+    [SerializeField] TextMeshProUGUI _textCostDamage;
+    [SerializeField] TextMeshProUGUI _textCostHp;
+
     void Start()
     {
         _ship.TryGetComponent(out ShipStats ss);
         _shipStats = ss;
+        SetCostInUI();
     }
 
     void OnEnable() => _playerInput.upgradeAction += StartUpgradeMenu;
@@ -58,6 +66,7 @@ public class UpgradeMenu : MonoBehaviour
         {
             _shipStats.SetHpLvl(_nowCostHpShip);
             _nowCostHpShip = _nowCostHpShip * _upRateShipCost; 
+            _audioSource.Play();
         }
     }
 
@@ -67,8 +76,16 @@ public class UpgradeMenu : MonoBehaviour
         {
             _shipStats.SetDamageLvl(_nowCostDamageShip);
             _nowCostDamageShip = _nowCostDamageShip * _upRateShipCost;
+            _audioSource.Play();
         }
     }
     #endregion
 
+    void SetCostInUI()
+    {
+        Observable.EveryUpdate().Subscribe(v => {
+            _textCostDamage.text = _nowCostDamageShip.ToString();
+            _textCostHp.text = _nowCostHpShip.ToString();
+        }).AddTo(this);
+    }
 }

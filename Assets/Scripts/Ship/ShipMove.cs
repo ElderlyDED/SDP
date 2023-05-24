@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
 public class ShipMove : MonoBehaviour
 {
+    [Inject] GameStatus _gameStatus;
     [Inject] PlayerInput _playerInput;
     Rigidbody2D _rb2d;
     [SerializeField] Camera _mainCam;
@@ -15,9 +17,13 @@ public class ShipMove : MonoBehaviour
 
     void Start()
     {
-        if(TryGetComponent(out Rigidbody2D rb))
+        if (TryGetComponent(out Rigidbody2D rb))
             _rb2d = rb;
         _mainCam = Camera.main;
+        Observable.EveryUpdate().Subscribe(v => {
+            if(!_gameStatus.GamePause)
+                RotateShip();
+        }).AddTo(this);
     }
 
     void OnEnable()
@@ -29,11 +35,6 @@ public class ShipMove : MonoBehaviour
     {
         _playerInput.accelerationAction -= Acceleration;
         _playerInput.decelerationAction -= Deceleration;
-    }
-
-    void Update()
-    {
-        RotateShip();
     }
 
     void Acceleration()

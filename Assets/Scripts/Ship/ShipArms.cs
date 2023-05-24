@@ -7,6 +7,7 @@ public class ShipArms : MonoBehaviour
 {
     [SerializeField] List<GameObject> _weapons = new();
     [Inject] PlayerInput _playerInput;
+    [Inject] GameStatus _gameStatus;
     ShipStats _shipStats;
     
     void Start()
@@ -27,8 +28,10 @@ public class ShipArms : MonoBehaviour
 
     void ActivSlots(int slotId)
     {
-        _weapons[slotId].TryGetComponent(out IShooting shooting);
-        shooting.Shoot(_shipStats.DamageLvl);
-            
+        if (!_gameStatus.GamePause)
+        {
+            _weapons[slotId].TryGetComponent(out IShooting shooting);
+            shooting.Shoot(_shipStats.DamageLvl);
+        }    
     }
 }

@@ -5,6 +5,7 @@ using Zenject.Asteroids;
 
 public class MachineGun : MonoBehaviour, IShooting
 {
+    [SerializeField] AudioSource _shootSound;
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] Transform _shootPointFirstGun;
     [SerializeField] Transform _shootPointSecondGun;
@@ -21,5 +22,6 @@ public class MachineGun : MonoBehaviour, IShooting
         var secondBullet = Instantiate(_bulletPrefab, _shootPointSecondGun.position, transform.rotation);
         if (secondBullet.TryGetComponent(out Bullet sBulletScript))
             sBulletScript.SetBulletStats(_bulletSpeed, damage, _bulletLifeTime);
+        _shootSound.Play();
     }
 } 

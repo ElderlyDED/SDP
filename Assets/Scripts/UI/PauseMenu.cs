@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class PauseMenu : MonoBehaviour
@@ -14,7 +15,7 @@ public class PauseMenu : MonoBehaviour
 
     void OnDisable() => _playerInput.pauseAction -= StartPause;
 
-    void StartPause()
+    public void StartPause()
     {
         if (!_activMenu)
         {
@@ -31,5 +32,11 @@ public class PauseMenu : MonoBehaviour
             _menuAnimator.SetBool("IsUp", false);
         }
 
+    }
+
+    public void MainMenuBtn() 
+    {
+        _gameStatus.SetGamePause();
+        SceneManager.LoadScene(0);
     }
 }
